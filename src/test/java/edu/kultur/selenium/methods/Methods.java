@@ -108,6 +108,20 @@ public class Methods {
         }
     }
 
+    public void waitBySeconds(long seconds){
+
+        waitByMilliseconds(seconds * 1000);
+    }
+
+    public void waitByMilliseconds(long timeMillis){
+
+        try {
+            Thread.sleep(timeMillis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public By getBy(String type, String value){
 
         By by = null;
