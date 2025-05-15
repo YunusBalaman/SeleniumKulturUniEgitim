@@ -1,0 +1,58 @@
+xpath
+
+//tag[@attribute='attributeValue']
+
+//tag[@attribute='attributeValue']/tag[@attribute='attributeValue']   / hemen altındaki elemente gider  (çocuklarına iner)
+//tag[@attribute='attributeValue']//tag[@attribute='attributeValue']  // altındaki herhangi bir elemente gider
+
+//div[starts-with(@id,'nav-al')]  starts-wth başlıyor mu
+
+//div[contains(@id,'signin')]  starts-with içeriyor mu
+
+//a[@class='nav-action-signin-button']
+
+//div[@id='nav-flyout-ya-signin']/a[@class='nav-action-signin-button'][@data-nav-role='signin'][@data-nav-ref='nav_signin']
+
+//div[@id='nav-flyout-ya-signin']/a[@class='nav-action-signin-button' and @data-nav-role='signin' and @data-nav-ref='nav_signin']
+
+//div[@id='nav-flyout-ya-signin' or @id='nav-al-signin']
+
+//div[contains(@id,'nav') and contains(@id,'signin') and not(contains(@id,'flyout'))]
+
+
+//tag[@attribute='attributeValue']/following-sibling::tag  /following-sibling:: küçük kardeşlere gider
+//tag[@attribute='attributeValue']/preceding-sibling::tag  /preceding-sibling:: büyük kardeşşlere gider
+
+//div[@id='nav-flyout-ya-signin']/a[@class='nav-action-signin-button']/following-sibling::div
+
+
+//div[@id='nav-flyout-ya-newCust']/preceding-sibling::a
+//div[@id='nav-flyout-ya-newCust']/preceding-sibling::a[@data-nav-role='signin']
+
+
+//div[@id='nav-flyout-ya-signin']/a[1]
+//div[@id='nav-flyout-ya-signin']/div[1]
+
+//div[@id='nav-flyout-ya-signin']/*[1]    * herhangi bir tag
+
+//a[@class='nav-action-signin-button']/span[text()='Giriş yap']
+
+//a[@class='nav-action-signin-button']/parent::div  /parent:: ebeveynine gider  (üstteki elemente gider)
+
+
+//a[@class='nav-action-signin-button' and ./span[text()='Giriş yap']]
+
+koşul  ->  @attribute='attributeValue'
+//tag[(koşul or koşul) and koşul]
+
+normalize-space(text())   normalize-space(@attribute)          normalize-space()  textin satır atlamalarını,
+ başındaki ve sonundaki boşlukları temizler
+
+
+
+
+
+
+
+
+

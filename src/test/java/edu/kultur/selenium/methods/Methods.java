@@ -4,6 +4,7 @@ import edu.kultur.selenium.driver.Driver;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -15,7 +16,6 @@ public class Methods {
     FluentWait<WebDriver> fluentWait;
     long timeout = 10;
     long pollingEvery = 450;
-
 
     public Methods(){
 
@@ -31,38 +31,36 @@ public class Methods {
                 .ignoring(NoSuchElementException.class);
     }
 
-    // id   name  class  cssSelector  xpath
+    // id   name  class  cssSelector  xpath.txt
 
-    public WebElement findElement(String type, String value){
+    public WebElement findElement(By by){
 
-        By by = getBy(type, value);
         return driver.findElement(by);
     }
 
-    public WebElement findElementWait(String type, String value){
+    public WebElement findElementWait(By by){
 
-        By by = getBy(type, value);
         return fluentWait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
-    public void click(String type, String value){
+    public void click(By by){
 
-        findElementWait(type, value).click();;
+        findElementWait(by).click();
     }
 
-    public void sendKeys(String type, String value, String text){
+    public void sendKeys(By by, String text){
 
-        findElementWait(type, value).sendKeys(text);
+        findElementWait(by).sendKeys(text);
     }
 
-    public String getText(String type, String value){
+    public String getText(By by){
 
-       return findElementWait(type, value).getText();
+       return findElementWait(by).getText();
     }
 
-    public String getAttribute(String type, String value, String attribute){
+    public String getAttribute(By by, String attribute){
 
-        return findElementWait(type, value).getDomAttribute(attribute);
+        return findElementWait(by).getDomAttribute(attribute);
     }
 
     public void navigateBack(){
@@ -80,15 +78,20 @@ public class Methods {
         driver.navigate().to(url);
     }
 
-    public void hoverElement(String type, String value) {
+    public String getCurrentUrl(){
 
-        WebElement webElement = findElementWait(type, value);
+        return driver.getCurrentUrl();
+    }
+
+    public void hoverElement(By by) {
+
+        //new Actions(driver).keyDown(Keys.CONTROL).sendKeys("c").keyUp(Keys.CONTROL).build().perform();
+        WebElement webElement = findElementWait(by);
         new Actions(driver).moveToElement(webElement).build().perform();
     }
 
-    public boolean isElementVisible(String type, String value, long timeout){
+    public boolean isElementVisible(By by, long timeout){
 
-        By by = getBy(type, value);
         try {
             setFluentWait(timeout, pollingEvery).until(ExpectedConditions.visibilityOfElementLocated(by));
             return true;
@@ -97,9 +100,8 @@ public class Methods {
         }
     }
 
-    public boolean isElementClickable(String type, String value, long timeout){
+    public boolean isElementClickable(By by, long timeout){
 
-        By by = getBy(type, value);
         try {
             setFluentWait(timeout, pollingEvery).until(ExpectedConditions.elementToBeClickable(by));
             return true;
@@ -138,7 +140,7 @@ public class Methods {
             case "css":
                 by = By.cssSelector(value);
                 break;
-            case "xpath":
+            case "xpath.txt":
                 by = By.xpath(value);
                 break;
             default:

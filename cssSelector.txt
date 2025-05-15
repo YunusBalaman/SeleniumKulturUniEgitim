@@ -1,0 +1,67 @@
+
+css selector
+
+tag[attribute = 'attributeValue']
+
+div[id='nav-flyout-ya-signin']
+
+
+id özel yazımı
+
+tag#idValue
+
+#idValue
+
+#nav-flyout-ya-signin
+
+div#nav-flyout-ya-signin a
+
+div#nav-flyout-ya-signin span
+
+div#nav-flyout-ya-signin > a
+
+class özel yazımı
+
+tag.classValue   class ın başına nokta konur ve boşluk varsa boşluklar silinerek yerine nokta eklenir
+
+[class='nav_pop_new_cust nav-flyout-content nav-flyout-accessibility']
+
+.nav_pop_new_cust.nav-flyout-content.nav-flyout-accessibility
+
+a.nav-action-signin-button
+
+
+tag[attribute='attributeValue'] > tag[attribute = 'attributeValue']   > işareti elementin çocuğuna gider
+
+tag[attribute='attributeValue'] tag[attribute = 'attributeValue']   boşluk işareti elementin altında bulunan herhangi bir yere gidebilir
+
+tag[attribute='attributeValue']:nth-of-type(index)
+tag[attribute='attributeValue']:nth-child(index)
+
+tag[attribute='attributeValue'] > tag:nth-of-type(index)
+tag[attribute='attributeValue'] > tag:nth-child(index)
+
+#nav-flyout-ya-signin > a:nth-of-type(1)   #nav-flyout-ya-signin çocuklarından a lar arasında birinci sıradaki
+#nav-flyout-ya-signin > div:nth-of-type(1)  #nav-flyout-ya-signin çocuklarından div ler arasında birinci sıradaki
+
+#nav-flyout-ya-signin > div:nth-child(2)  #nav-flyout-ya-signin çocuklarından ikinci sıradaki tagı div olan element
+
+#nav-flyout-ya-signin > div:last-child
+
+#nav-flyout-ya-signin > *:last-child  * bu kullanımda herhangi bir tag anlamına gelir
+
+#nav-flyout-ya-signin > a + div  + hemen altındaki küçük kardeşe gider
+
+#nav-flyout-ya-signin > a ~ div  ~ küçük kardeşlerden herhangi birine gider
+
+
+div[id*='signin']  * içeriyor mu
+div[id^='nav-al-sign']  ^ başlıyor mu
+div[id$='singin']  $ sonlanıyor mu
+
+tag[attribute='attributeValue'][attribute2='attributeValue2']
+div[id*='signin']:not([id*='flyout'])
+
+div[id='nav-al-signin'] , div[id='nav-flyout-ya-signin']
+
+
