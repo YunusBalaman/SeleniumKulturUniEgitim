@@ -37,7 +37,6 @@ public class LoginPage {
         methods.sendKeys(ILoginPage.password, password);
         assertTrue(methods.isElementClickable(ILoginPage.signInButton,10));
         methods.click(ILoginPage.signInButton);
-        methods.waitBySeconds(3);
     }
 
 

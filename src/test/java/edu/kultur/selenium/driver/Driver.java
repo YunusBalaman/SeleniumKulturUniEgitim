@@ -1,9 +1,6 @@
 package edu.kultur.selenium.driver;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Driver {
+
+    public static String browser = "chrome";
 
     public static WebDriver driver;
 
@@ -24,6 +23,38 @@ public class Driver {
 
     @BeforeEach
     public void before(){
+
+        switch (browser){
+            case "chrome":
+                driver = getChromeDriver();
+                break;
+            case "firefox":
+                break;
+            case "edge":
+                break;
+            default:
+                Assertions.fail("browser hatalı");
+        }
+
+        driver.manage().window().maximize();
+        driver.get("https://www.amazon.com.tr/");
+    }
+
+    @AfterEach
+    public void after(){
+
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    @AfterAll
+    public static void afterAll(){
+
+
+    }
+
+    public WebDriver getChromeDriver(){
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-blink-features");
@@ -55,23 +86,7 @@ public class Driver {
         //options.addArguments("--incognito");
         //   options.addArguments("--remote-debugging-port=9222");
         //   options.addArguments("--remote-debugging-address=127.0.0.1");
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
-        driver.get("https://www.amazon.com.tr/");
-    }
-
-    @AfterEach
-    public void after(){
-
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
-    @AfterAll
-    public static void afterAll(){
-
-
+        return new ChromeDriver(options);
     }
 
 }

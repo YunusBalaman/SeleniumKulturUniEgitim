@@ -16,11 +16,13 @@ public class Methods {
     FluentWait<WebDriver> fluentWait;
     long timeout = 10;
     long pollingEvery = 450;
+    JavascriptExecutor jsDriver;
 
     public Methods(){
 
         this.driver = Driver.driver;
         fluentWait = setFluentWait(timeout, pollingEvery);
+        jsDriver = (JavascriptExecutor) driver;
     }
 
     public FluentWait<WebDriver> setFluentWait(long timeout, long pollingEvery){
@@ -110,6 +112,80 @@ public class Methods {
         }
     }
 
+    public void scrollElement(WebElement webElement){
+
+        jsDriver.executeScript("arguments[0].scrollIntoView();", webElement);
+    }
+
+    public void scrollIntoViewIfNeeded(WebElement webElement){
+
+        jsDriver.executeScript("arguments[0].scrollIntoViewIfNeeded();", webElement);
+    }
+
+    public void scrollElementCenter(WebElement webElement){
+
+        jsDriver.executeScript(
+                "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});",
+                webElement);
+    }
+
+    public void scrollPage(int scrollY){
+
+        jsDriver.executeScript("window.scrollBy(0," + scrollY + ")");
+    }
+
+    public void clickByCoordinate(int x, int y){
+
+        jsDriver.executeScript("document.elementFromPoint("+ x + "," + y +").click();");
+    }
+
+    public void clickByWebElementCoordinate(WebElement webElement){
+
+        jsDriver.executeScript("var element = arguments[0];" +
+                "var box = element.getBoundingClientRect();\n" +
+                "var clientX = box.left + (box.width / 2);\n" +
+                "var clientY = box.top + (box.height / 2);" +
+                "document.elementFromPoint(clientX,clientY).click();", webElement);
+    }
+
+    public void clickByWebElementCoordinate(WebElement webElement, int x, int y){
+        jsDriver.executeScript("var element = arguments[0];" +
+                "var box = element.getBoundingClientRect();\n" +
+                "var clientX = box.left + ((box.width * " + x + ") / 100);\n" +
+                "var clientY = box.top + ((box.height * " + y + ") / 100);" +
+                "document.elementFromPoint(clientX,clientY).click();", webElement);
+    }
+
+    public void clickByElement(WebElement webElement){
+
+        jsDriver.executeScript("arguments[0].click();", webElement);
+    }
+
+    public Object getValue(WebElement webElement){
+
+        String script = "return arguments[0].value;";
+        return jsDriver.executeScript(script,webElement);
+    }
+
+    public void focusElement(WebElement webElement){
+
+        jsDriver.executeScript("arguments[0].focus();", webElement);
+    }
+
+    public void mouseOver(WebElement webElement){
+
+        jsDriver.executeScript("var evObj = document.createEvent('MouseEvents');"
+                + "evObj.initMouseEvent(\"mouseover\",true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);"
+                + "arguments[0].dispatchEvent(evObj);", webElement);
+    }
+
+    public void mouseOut(WebElement webElement){
+
+        jsDriver.executeScript("var evObj = document.createEvent('MouseEvents');"
+                + "evObj.initMouseEvent(\"mouseout\",true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);"
+                + "arguments[0].dispatchEvent(evObj);", webElement);
+    }
+
     public void waitBySeconds(long seconds){
 
         waitByMilliseconds(seconds * 1000);
@@ -148,6 +224,7 @@ public class Methods {
         }
         return by;
     }
+
 
 
 }
